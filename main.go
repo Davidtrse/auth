@@ -49,10 +49,16 @@ func foo(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewEncoder(w).Encode(p1)
 	if err != nil {
-		log.Panic(err)
+		log.Println("Encode bad data", err)
 	}
 }
 
 func bar(w http.ResponseWriter, r *http.Request) {
+	var p1 person
+	err := json.NewDecoder(r.Body).Decode(&p1)
+	if err != nil {
+		log.Println("Decode bad data", err)
+	}
 
+	log.Println("Person: ", p1)
 }
