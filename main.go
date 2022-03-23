@@ -26,5 +26,13 @@ func main() {
 		log.Panic(err)
 	}
 
-	fmt.Printf("Print Json PERSON %v", bs)
+	fmt.Printf("Print Json PERSON %v\n", bs)
+
+	xp2 := []person{}
+	err = json.Unmarshal(bs, &xp2)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	fmt.Println("back into a Go data structure", xp2)
 }
