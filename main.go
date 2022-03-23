@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 )
 
 type person struct {
@@ -35,4 +36,23 @@ func main() {
 	}
 
 	fmt.Println("back into a Go data structure", xp2)
+
+	http.HandleFunc("/encode", foo)
+	http.HandleFunc("/decode", bar)
+	http.ListenAndServe(":8080", nil)
+}
+
+func foo(w http.ResponseWriter, r *http.Request) {
+	p1 := person{
+		First: "Jenny",
+	}
+
+	err := json.NewEncoder(w).Encode(p1)
+	if err != nil {
+		log.Panic(err)
+	}
+}
+
+func bar(w http.ResponseWriter, r *http.Request) {
+
 }
