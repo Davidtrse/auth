@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -11,7 +13,7 @@ type person struct {
 }
 
 func main() {
-
+	printBase64()
 	http.HandleFunc("/encode", foo)
 	http.HandleFunc("/decode", bar)
 	http.ListenAndServe(":8080", nil)
@@ -36,4 +38,8 @@ func bar(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Println("Person: ", p1)
+}
+
+func printBase64() {
+	fmt.Println(base64.StdEncoding.EncodeToString([]byte("user:pass")))
 }
